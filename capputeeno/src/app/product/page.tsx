@@ -87,7 +87,7 @@ const ProductInfo = styled.div`
 
     p {
         font-weight: 400;
-        font-size: 12px;
+        font-size: 14px;
         color: (--text-dark);
     }
 
@@ -98,26 +98,27 @@ const ProductInfo = styled.div`
             text-transform: uppercase;
             color: var(--text-dark);
             font-weight: 500;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         p {
-            font-size: 14px;
+            font-size: 16px;
+            text-align: justify;
         }
     }
 `
 
-export default function Product({ searchParams }: { searchParams: { id: string }}) {
+export default function Product({ searchParams }: { searchParams: { id: string } }) {
     const { data } = useProduct(searchParams.id);
-    
+
     const handleAddToCart = () => {
         let cartItems = localStorage.getItem('cart-items');
-        if(cartItems) {
+        if (cartItems) {
             let cartItemsArray = JSON.parse(cartItems);
 
             let existingProductIndex = cartItemsArray.findIndex((item: { id: string; }) => item.id === searchParams.id);
 
-            if(existingProductIndex != -1){
+            if (existingProductIndex != -1) {
                 cartItemsArray[existingProductIndex].quantity += 1;
             } else {
                 cartItemsArray.push({ ...data, quantity: 1, id: searchParams.id })
@@ -130,12 +131,12 @@ export default function Product({ searchParams }: { searchParams: { id: string }
         }
     }
 
-    return(
+    return (
         <DefaultPageLayout>
             <Container>
-                <BackBtn navigate="/"/>
+                <BackBtn navigate="/" />
                 <section>
-                    <img src={data?.image_url}/>
+                    <img src={data?.image_url} />
                     <div>
                         <ProductInfo>
                             <span>{data?.category}</span>
@@ -148,7 +149,7 @@ export default function Product({ searchParams }: { searchParams: { id: string }
                             </div>
                         </ProductInfo>
                         <button onClick={handleAddToCart}>
-                            <ShopBagIcon/>
+                            <ShopBagIcon />
                             Adicionar ao carrinho
                         </button>
                     </div>

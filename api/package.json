@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "npm": ">=18.12.0"
+  },
   "scripts": {
     "start": "json-graphql-server db.js --p 3333"
   },
