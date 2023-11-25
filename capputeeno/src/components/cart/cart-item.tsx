@@ -1,12 +1,13 @@
 import { ProductInCart } from "@/types/product"
 import { formatPrice } from "@/utils/format-price"
-import { ChangeEvent } from "react"
+import { useContext, ChangeEvent } from "react";
+import { CartContext } from "@/contexts/cart-context";
+
 import { styled } from "styled-components"
 import { DeleteIcon } from "../icons/delete-icon"
 
 interface CartItemProps {
-    product: ProductInCart
-    handleUpdateQuantity(id: string, quantity: number): void
+    product: ProductInCart;
     handleDelete(id: string): void
 }
 
@@ -87,10 +88,12 @@ const SelectQuantity = styled.select`
     font-size: 16px;
 `
 
-export function CartItem({ product, handleUpdateQuantity, handleDelete }: CartItemProps) {
+export function CartItem({ product, handleDelete }: CartItemProps) {
+    const { quantity } = useContext(CartContext);
+
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        handleUpdateQuantity(product.id, Number(e.target.value))
-    }
+        quantity && quantity(product.id, Number(e.target.value));
+    };
     return (
         <Item>
             <button onClick={() => handleDelete(product.id)} aria-label="Deletar">

@@ -3,6 +3,8 @@
 import { useProducts } from "@/hooks/useProducts"
 import { ProductCard } from "./product-card";
 import { styled } from "styled-components";
+import { useContext } from "react";
+import { CartContext } from "@/contexts/cart-context";
 
 const ListContainer = styled.div`
     display: grid;
@@ -13,19 +15,20 @@ const ListContainer = styled.div`
     margin-top: 32px;
 `
 
-export function ProductsList(){
-    const { data } = useProducts();
-    return(
+export function ProductsList() {
+    const { data } = useContext(CartContext);
+
+    return (
         <ListContainer>
-            {data?.map(product => 
-            <ProductCard
-                key={product.id}
-                title={product.name}
-                price={product.price_in_cents}
-                image={product.image_url}
-                id={product.id}
-            />
+            {data?.map(product =>
+                <ProductCard
+                    key={product.id}
+                    title={product.name}
+                    price={product.price_in_cents}
+                    image={product.image_url}
+                    id={product.id}
+                />
             )}
-    </ListContainer>
+        </ListContainer>
     )
 }

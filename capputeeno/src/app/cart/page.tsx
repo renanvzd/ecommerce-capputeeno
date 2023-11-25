@@ -105,14 +105,6 @@ export default function CartPage() {
     const deliveryFee = 4000;
     const cartTotalWithDelivery = formatPrice(calculateTotal(value) + deliveryFee)
 
-    const handleUpdateQuantity = (id: string, quantity: number) => {
-        const newValue = value.map(item => {
-            if (item.id !== id) return item
-            return { ...item, quantity: quantity }
-        })
-        updateLocalStorage(newValue)
-    }
-
     const handleDeleteItem = (id: string) => {
         const newValue = value.filter(item => {
             if (item.id !== id) return item
@@ -136,7 +128,6 @@ export default function CartPage() {
                                 product={item}
                                 key={item.id}
                                 handleDelete={handleDeleteItem}
-                                handleUpdateQuantity={handleUpdateQuantity}
                             />)}
                     </CartList>
                 </CartListContainer>
